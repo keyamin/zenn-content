@@ -13,7 +13,7 @@ Go で `go run main.go` するときの引数を扱いたかったので、そ�
 
 # 実装過程
 
-## コマンドライン引数を取得する
+## コマンドライン引数を受け取る
 
 Go でコマンドライン引数を取得する方法は `os.Args` と `flag` パッケージの 2 通りがあるそうです。
 簡単かつできることも多そうなので `flag` を選択しました！
@@ -52,3 +52,16 @@ $ go run main.go -name=Bob
 https://syfm.hatenablog.com/entry/2019/10/01/063436
 
 ## .env ファイルで定義した環境変数を受け取る
+
+[godotenv](https://github.com/joho/godotenv)を使い、.envファイルを読み込むことができます。
+
+ただし、通常通り`godotenv.Load()`で読み込むと元から存在する環境変数が優先されるため、今回の場合`godotenv.Overload()`を使用する必要があります。
+
+```go
+// デフォルトではプロジェクトルートの.envが読まれる。
+// 引数にファイル名を渡せば.env.developmentなどの使い分けも可能。
+godotenv.Overload()
+```
+
+## 環境変数を受け取る
+
